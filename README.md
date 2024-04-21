@@ -11,8 +11,8 @@ TaskForge is a robust task management application that provides complete control
 - **Save Completed Tasks**: Completed tasks are saved in a separate list for reference.
 - **Persistent Storage**: Tasks are saved locally in the browser, ensuring they are not lost when leaving or reloading the page.
 
+![TaskForge Banner](img/banner.png)
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-![TaskForge Banner](img/banner.png)
