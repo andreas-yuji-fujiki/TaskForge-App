@@ -128,7 +128,7 @@ body{
 .progress-container h2{
     font-weight: 100;
     font-size: 0.9rem;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 #user-level{
     text-transform: uppercase;
@@ -356,7 +356,7 @@ footer a{
         padding-left: 0.5rem;
     }
     .task-item {
-        width: 75%;
+        width: 90%;
         max-height: 5rem;
         padding: 0.5rem;
     }
