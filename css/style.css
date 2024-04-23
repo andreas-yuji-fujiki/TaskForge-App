@@ -24,6 +24,9 @@ body{
 .hide{
     display: none;
 }
+.task-item.hide{
+    display: none;
+}
 
 
 /* Header Styles */
@@ -198,10 +201,10 @@ body{
     opacity: 0.7;
     margin: 0 0 1rem -1rem;
 }
-.tasks-list-container{
+#tasks-list-container{
     padding-left: 1.2rem;
 }
-.tasks-list-container ul{
+#tasks-list-container ul{
     list-style: none;
 }
 .task-item{
@@ -210,7 +213,7 @@ body{
     justify-content: space-between;
     cursor: pointer;
 
-    width: 90%;
+    width: 85%;
     padding: 1rem;
     border: 0.1rem solid #aaaaaa;
     margin: 2rem 0 2rem 2rem;
@@ -228,7 +231,7 @@ body{
     background-size: cover;
     background-position: center;
 }
-.task-infos{
+.task-info{
     width: 90%;
     padding-right: 1.5rem;
     max-height: 5rem;
@@ -241,9 +244,12 @@ body{
 }
 .task-description{
     font-size: 0.9rem;
+    max-width: 90%;
+    line-break: break-word;
     opacity: 0.7;
 }
 .task-buttons{
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -261,10 +267,9 @@ body{
 
 
 /* Task Classes */
-.recovery-task-btn,
-.task-item.marked .edit-task-btn, 
-.task-item.deleted .edit-task-btn, 
-.task-item.deleted .delete-task-btn, 
+.recover-task-btn,
+.task-item.marked .task-edit-button, 
+.task-item.deleted .task-edit-button,  
 .task-item.deleted::before{
     display: none;
 }
@@ -273,13 +278,13 @@ body{
     opacity: 0.45;
     border: none;
 }
-.task-item.marked .task-infos, .task-item.deleted .task-infos{
+.task-item.marked .task-info, .task-item.deleted .task-info{
     overflow-y: hidden;
 }
 .task-item.marked::before{
     background-image: url('../img/checked.png');
 }
-.task-item.deleted .recovery-task-btn{
+.task-item.deleted .recover-task-btn{
     display: block;
 }
 .task-item.marked:hover, .task-item.deleted:hover{
@@ -352,7 +357,7 @@ footer a{
     .category-description{
         font-size: 0.6rem;
     }
-    .tasks-list-container {
+    #tasks-list-container {
         padding-left: 0.5rem;
     }
     .task-item {
