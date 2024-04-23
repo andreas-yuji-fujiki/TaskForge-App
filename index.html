@@ -28,23 +28,23 @@
             <header class="to-do-header">
                 <h1 id="saluting">
                     <img src="img/logo.png">
-                    Hello,
+                    <span id="user-name">Hello,</span>
 
                     <input type="text" placeholder="new name" name="user-name-input" id="user-name-input">
                     <button id="change-name-btn">
-                        <i class="bi bi-check-lg"></i> <!--   bi-pencil   -->
+                        <i id="change-name-icon" class="bi bi-check-lg"></i> <!--   bi-pencil   -->
                     </button>
                 </h1>
 
                 <!-- Form To Add a Task -->
                 <form id="form-add-task">
                     <div class="task-input-container">
-                        <input type="text" placeholder="Give a task name" name="task-name-input" id="task-name-input">
+                        <input type="text" placeholder="Give a task name" autocomplete="off" name="task-name-input" id="task-name-input">
                         <button type="submit" id="add-task-button">
                             <i class="bi bi-plus"></i>
                         </button>
                     </div>
-                    <input type="text" placeholder="Enter a task description (optional)" name="task-description-input" id="task-description-input">
+                    <input type="text" placeholder="Enter a task description (optional)" autocomplete="off" name="task-description-input" id="task-description-input">
                 </form>
 
                 <!-- Progress Bar & Level Info -->
@@ -60,23 +60,25 @@
 
                 <!-- Toolbar With Search And Filter -->
                 <div class="toolbar">
+                    <!--Search form-->
                     <form id="search-form">
                         <input type="text" placeholder="Search" name="search-input" id="search-input">
                         <button type="submit" id="clear-search-button">
                             <i class="bi bi-backspace"></i>
                         </button>
                     </form>
+                    <!--Select to Filter Tasks-->
                     <select name="filter-tasks-select" id="filter-tasks-select">
-                        <option value="all-tasks">
-                            All
+                        <option value="all-tasks" class="task-filter-select">
+                            All Tasks
                         </option>
-                        <option value="to-do-tasks">
+                        <option value="to-do-tasks" class="task-filter-option">
                             To-do
                         </option>
-                        <option value="conclued-tasks">
+                        <option value="conclued-tasks" class="task-filter-option">
                             Conclued
                         </option>
-                        <option value="deleted-tasks">
+                        <option value="deleted-tasks" class="task-filter-option">
                             Deleted
                         </option>
                     </select>
@@ -92,19 +94,19 @@
                     Edit all details you want, then press to confirm.
                 </p>
                 <div class="task-input-container">
-                    <input type="text" placeholder="Edit task name" name="edit-task-name-input" id="edit-task-name-input">
-                    <button id="confirm-edit-button">
+                    <input type="text" placeholder="Edit task name" autocomplete="off" name="edit-task-name-input" id="edit-task-name-input">
+                    <button type="submit" id="confirm-edit-button">
                         <i class="bi bi-check-lg"></i>
                     </button>
                     <button id="cancel-edit-button">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
-                <input type="text" placeholder="Edit task description (optional)" name="edit-task-description-input" id="edit-task-description-input">
+                <input type="text" placeholder="Edit task description (optional)" autocomplete="off" name="edit-task-description-input" id="edit-task-description-input">
             </form>
 
             <!-- Container Of All Type Of Tasks -->
-            <section class="tasks-list-container">
+            <section id="tasks-list-container">
                 <!-- To-Do Tasks Container -->
                 <h3 class="category-title">
                     To-do
@@ -113,27 +115,6 @@
                     All the tasks you don't conclude yet!
                 </p>
                 <ul id="tasks-list">
-                    <li class="task-item">
-                        <div class="task-infos">
-                            <h4 class="task-title">
-                                estudar javascript
-                            </h4>
-                            <p class="task-description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae nesciunt, sit maiores hic harum velit consequuntur a at quo sunt optio illum accusantium veniam animi autem eum distinctio dignissimos soluta!
-                            </p>
-                        </div>
-                        <div class="task-buttons">
-                            <button class="edit-task-btn">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="delete-task-btn">
-                                <i class="bi bi-x-square"></i>
-                            </button>
-                            <button class="recovery-task-btn">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </button>
-                        </div>
-                    </li>
                 </ul>
 
                 <!-- Conclued Tasks Container -->
@@ -144,27 +125,6 @@
                     The limit is up to 15 conclued tasks!
                 </p>
                 <ul id="conclued-tasks-list">
-                    <li class="task-item marked">
-                        <div class="task-infos">
-                            <h4 class="task-title">
-                                task concluída
-                            </h4>
-                            <p class="task-description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia quibusdam quas unde nihil odit placeat ratione totam deleniti ab corrupti, esse perspiciatis. Maxime porro impedit quia explicabo iusto magni nam.
-                            </p>
-                        </div>
-                        <div class="task-buttons">
-                            <button class="edit-task-btn">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="delete-task-btn">
-                                <i class="bi bi-x-square"></i>
-                            </button>
-                            <button class="recovery-task-btn">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </button>
-                        </div>
-                    </li>
                 </ul>
 
                 <!-- Deleted Tasks Container -->
@@ -175,30 +135,27 @@
                     The limit is up to 10 deleted tasks!
                 </p>
                 <ul id="deleted-tasks-list">
-                    <li class="task-item deleted">
-                        <div class="task-infos">
-                            <h4 class="task-title">
-                                task deletada
-                            </h3>
-                            <p class="task-description">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            </p>
-                        </div>
-                        <div class="task-buttons">
-                            <button class="edit-task-btn">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="delete-task-btn">
-                                <i class="bi bi-x-square"></i>
-                            </button>
-                            <button class="recovery-task-btn">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </button>
-                        </div>
-                    </li>
                 </ul>
             </section>
 
+            <!--Task Item Template-->
+            <template id="task-template">
+                <li class="task-item">
+                    <div class="task-info">
+                        <h4 class="task-title"></h4>
+                        <p class="task-description"></p>
+                    </div>
+                    <div class="task-buttons">
+                        <button class="task-edit-button">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="task-delete-button">
+                            <i class="bi bi-x-square"></i>
+                        </button>
+                    </div>
+                </li>
+            </template>
+            
             <!-- Footer & Social Links -->
             <footer>
                 <h5>&copy; Andreas Pinheiro</h5>
