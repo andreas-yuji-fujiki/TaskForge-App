@@ -6,7 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body{
-    background: linear-gradient(125deg, #ff3e3e, #bf04f8);
+    background: linear-gradient(100deg, #ff3e3e, #bf04f8);
     min-height: 100lvh;
     scrollbar-width: thin;
 }
@@ -28,11 +28,32 @@ body{
 #form-add-task.hide,
 #todo-tasks-section.hide,
 #conclued-tasks-section.hide,
-#deleted-tasks-section.hide
-{
+#deleted-tasks-section.hide,
+.category-info.hide *,
+#data-warning.hide{
     display: none;
 }
-
+#data-warning{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-size: 0.8rem;
+    padding: 1rem 0;
+    gap: 1rem;
+}
+#data-warning button{
+    border: none;
+    color: white;
+    font-size: 1.7rem;
+    background-color: transparent;
+}
+#data-warning button:hover{
+    cursor: pointer;
+    transform: scale(1.5);
+}
 
 /* Header Styles */
 #to-do-app{
@@ -215,6 +236,15 @@ body{
 #tasks-list-container ul{
     list-style: none;
 }
+#deleted-tasks-section .category-info{
+    display: flex;
+    justify-content: space-between;
+}
+#clear-deleted-tasks-list-button{
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
 .task-item{
     position: relative;
     display: flex;
@@ -249,12 +279,14 @@ body{
     font-size: 1.04rem;
     font-weight: 900;
     margin-bottom: 0.6rem;
+    word-wrap: break-word;
 }
 .task-description{
     font-size: 0.9rem;
     max-width: 90%;
     line-break: break-word;
     opacity: 0.7;
+    word-wrap: break-word;
 }
 .task-buttons{
     position: relative;
@@ -298,7 +330,13 @@ body{
 .task-item.marked:hover, .task-item.deleted:hover{
     opacity: 1;
 }
-
+#tasks-list, 
+#conclued-tasks-list,
+#deleted-tasks-list{
+    max-height: 15rem;
+    overflow-y: auto;
+    margin-bottom: 3rem;
+}
 
 /* Footer Styles */
 footer{
@@ -316,28 +354,38 @@ footer a{
     color: black;
 }
 
+
 /* Responsive Styles */
 @media screen and (max-width: 750px) {
+    #data-warning{
+        gap: 0.5rem;
+        font-size: 0.49rem;
+        padding: 0.5rem 0;
+    }
+    #data-warning button{
+        font-size: 1rem;
+    }
     #to-do-app {
-        width: 95%;
+        width: 90%;
         padding: 1rem;
     }
     .to-do-header h2 {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     .to-do-header img{
         width: 2rem;
     }
     #user-name-input {
-        width: 6.8rem;
-        font-size: 1.4rem;
+        width: 8.3rem;
+        font-weight: 600;
+        font-size: 1.7rem;
     }
     #task-name-input, #edit-task-name-input{
-        font-size: 0.8rem;
+        font-size: 1rem;
         width: 90%;
     }
     .task-input-container button{
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     #progress-container h2{
         font-size: 0.7rem;
@@ -363,7 +411,7 @@ footer a{
         font-size: 1rem;
     }
     .category-description{
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
     #tasks-list-container {
         padding-left: 0.5rem;
@@ -378,11 +426,11 @@ footer a{
         width: 1.1rem;
     }
     .task-title {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         margin-bottom: 0.3rem;
     }
     .task-description {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
     .task-buttons{
         margin-left: 1rem;
