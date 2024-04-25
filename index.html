@@ -24,6 +24,15 @@
 </head>
 <body>
     <main class="container">
+        <h1 class="hide">TaskForge App</h1>
+        <div id="data-warning">
+            <h2>
+                clearing the website data will cause all data to be deleted!
+            </h2>
+            <button id="dimiss-warning">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
         <div id="to-do-app">
             <!-- App Header -->
             <header class="to-do-header">
@@ -109,38 +118,58 @@
 
             <!-- Container Of All Type Of Tasks -->
             <div id="task-lists-container">
+                <!-- Search Info -->
+                <div id="search-info" class="hide">
+                    <h3 class="category-title">
+                        Search Results:
+                    </h3>
+                    <p id="display-search-info" class="category-description">
+                        No matching results!
+                    </p>
+                </div>
                 <!-- To-Do Tasks Container -->
                 <section id="todo-tasks-section">
-                    <h3 class="category-title">
-                        To-do
-                    </h3>
-                    <p class="category-description">
-                        All the tasks you don't conclude yet!
-                    </p>
+                    <div class="category-info">
+                        <h3 class="category-title">
+                            To-do
+                        </h3>
+                        <p class="category-description">
+                            All the tasks you don't conclude yet!
+                        </p>
+                    </div>
                     <ul id="tasks-list">
                     </ul>
                 </section>
 
                 <!-- Conclued Tasks Container -->
                 <section id="conclued-tasks-section">
-                    <h3 class="category-title">
-                        Conclued
-                    </h3>
-                    <p class="category-description">
-                        The limit is up to 15 conclued tasks!
-                    </p>
+                    <div class="category-info">
+                        <h3 class="category-title">
+                            Conclued
+                        </h3>
+                        <p class="category-description">
+                            The limit is up to 15 conclued tasks!
+                        </p>
+                    </div>
                     <ul id="conclued-tasks-list">
                     </ul>
                 </section>
 
                 <!-- Deleted Tasks Container -->
                 <section id="deleted-tasks-section">
-                    <h3 class="category-title">
-                        Deleted
-                    </h3>
-                    <p class="category-description">
-                        The limit is up to 10 deleted tasks!
-                    </p>
+                    <div class="category-info">
+                        <div>
+                            <h3 class="category-title">
+                                Deleted
+                            </h3>
+                            <p class="category-description">
+                                The limit is up to 10 deleted tasks!
+                            </p>
+                        </div>
+                        <button id="clear-deleted-tasks-list-button">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
                     <ul id="deleted-tasks-list">
                     </ul>
                 </section>
