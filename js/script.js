@@ -1,4 +1,7 @@
 /* ELEMENTS SELECTION */
+// dimiss data warning button
+const dataWarningDiv = document.getElementById('data-warning')
+const dimissWarningButton = document.getElementById('dimiss-warning')
 // Saluting div elements
 const salutingDiv = document.getElementById('saluting')
 const displayUserName = document.getElementById('user-name')
@@ -13,20 +16,24 @@ const taskDescriptionInput = document.getElementById('task-description-input')
 const taskTemplate = document.getElementById('task-template')
 // Task list elements
 const taskListsContainer = document.getElementById('task-lists-container')
+const categoryInfoDivs = document.querySelectorAll('.category-info')
     // specific task lists elements
+    const searchInfoDiv = document.getElementById('search-info')
+    const displaySearchInfoParagraph = document.getElementById('display-search-info')
     const todoTasksSection = document.getElementById('todo-tasks-section')
     const concluedTasksSection = document.getElementById('conclued-tasks-section')
     const deletedTasksSection = document.getElementById('deleted-tasks-section')
 const todoTasksList = document.getElementById('tasks-list')
 const concluedTasksList = document.getElementById('conclued-tasks-list')
 const deletedTasksList = document.getElementById('deleted-tasks-list')
+const clearDeletedTasksButton = document.getElementById('clear-deleted-tasks-list-button')
 // User Level && EXP elements
 const progressContainer = document.getElementById('progress-container')
 const userCurrentExp = document.getElementById('current-exp')
+const userCurrentLevel = document.getElementById('user-level')
     // user level values
     let userExpValue = 0
     let userLevelValue = 0
-const userCurrentLevel = document.getElementById('user-level')
 const progressBar = document.getElementById('progress-bar')
 // Toolbar element
 const toolbarContainer = document.getElementById('toolbar')
@@ -46,8 +53,11 @@ const cancelEditButton = document.getElementById('cancel-edit-button')
 
 
 
-
 /* FUNCTIONS */
+// dimiss data warning function
+dimissWarningButton.addEventListener('click', () => {
+    dataWarningDiv.classList.add('hide')
+})
 // Change user name function && event handler
 function changeUserNameFunction(){
     const userNameValue = userNameInput.value
@@ -76,6 +86,7 @@ function changeUserNameFunction(){
 
             // update user name display
             displayUserName.innerText = `Hello, ${userNameValue}`
+            saveData()
         }
     }
 }
@@ -114,6 +125,7 @@ function addTaskFunction(event){
         // adding event listeners on task buttons
         setEventListenerToTaskButtons()
     }
+    saveData()
 }
 addTaskForm.addEventListener('submit', addTaskFunction)
 
@@ -139,6 +151,9 @@ function setEventListenerToTaskButtons(){
     deleteTaskButtons.forEach(deleteButton => {
         deleteButton.addEventListener('click', deleteTaskFunction)
     })
+
+    // set event handler to "edit name" button
+    changeNameButton.addEventListener('click', changeUserNameFunction)
 }
 setEventListenerToTaskButtons()
 
@@ -157,16 +172,31 @@ function updateUserLevelFunction(){
 }
 
 
-// Search tasks function && event handler
-searchInput.addEventListener('input', event => {
+// ["SEARCH" RELATED FUNCTION] Search tasks function && event handler
+function searchTasksFunction(event){
     // select useful elements
     const inputValue = event.currentTarget.value.toLowerCase()
     const tasksList = document.getElementsByTagName('li')
+
+    // counter of visible tasks
+    let visibleTasksCount = 0
 
     // if there is an input value: we will run trough all list items
     // then if an list item includes on name or description the input value
     // we will show it, otherwise, hide it
     if(inputValue){
+        // set the selection value to "all" to avoid confusing while search
+        filterTasksSelect.value = 'all-tasks'
+        filterTasksFunction()
+
+        // show "search" info div && hide all other category info divs
+        searchInfoDiv.classList.remove('hide')
+
+        categoryInfoDivs.forEach(div => {
+            div.classList.add('hide')
+        })
+
+        // then check input values
         for(let i = 0; i < tasksList.length; i++){
             const taskItem = tasksList[i]
             const taskName =  tasksList[i].querySelector('.task-title').innerText.toLowerCase()
@@ -175,22 +205,49 @@ searchInput.addEventListener('input', event => {
 
             if(searchValueMatchesWithTask){
                 taskItem.classList.remove('hide')
+                visibleTasksCount++
             }else{
                 taskItem.classList.add('hide')
             }
+            // set a message if there is no search results
+            if(visibleTasksCount === 0){
+                displaySearchInfoParagraph.innerText = 'No matching results!'
+            }else{
+                displaySearchInfoParagraph.innerText = ''
+            }
         }
     }else{
+        // hide "search" info div && show back all category info divs
+        searchInfoDiv.classList.add('hide')
+
+        categoryInfoDivs.forEach(div => {
+            div.classList.remove('hide')
+        })
+
         // if there's no input value... then we will show back all tasks
         for(let i = 0; i < tasksList.length; i++){
             tasksList[i].classList.remove('hide')
         }
     }
+}
+searchInput.addEventListener('input', searchTasksFunction)
+
+
+// ["SEARCH" RELATED FUNCTION] Clear search input function && event handler
+clearSearchInputButton.addEventListener('click', event => {
+    event.preventDefault()
+
+    // set value as a empty string
+    searchInput.value = ''
+    searchInput.focus()
+
+    // calling search function to update search results
+    searchTasksFunction()
 })
 
 
 // Filter tasks function && event handler
-filterTasksSelect.addEventListener('change', () => {
-    console.log(filterTasksSelect.value)
+function filterTasksFunction(){
     switch(filterTasksSelect.value){
         case 'all-tasks':
             todoTasksSection.classList.remove('hide')
@@ -213,7 +270,8 @@ filterTasksSelect.addEventListener('change', () => {
             deletedTasksSection.classList.remove('hide')
         break
     }
-})
+}
+filterTasksSelect.addEventListener('change', filterTasksFunction)
 
 
 // Conclude task function
@@ -247,10 +305,12 @@ function concludeTaskFunction(event){
         }
     }
     updateUserLevelFunction()
+    tasksLimitFunction()
+    saveData()
 }
 
 
-// ["EDIT TASK" RELATED FUNCTION] Toggle edit form
+// ["EDIT TASK" RELATED FUNCTION] Toggle edit form && event handler
 function toggleEditFormFunction(event){
     event.stopPropagation()
 
@@ -311,11 +371,12 @@ function updateTaskInfo(event){
 
     // removes "being-edited-task" id from task
     currentTask.id = ''
+    saveData()
 }
 editTaskForm.addEventListener('submit', updateTaskInfo)
 
 
-// Delete task function
+// ["DELETE TASK" RELATED FUNCTION] Delete task function
 function deleteTaskFunction(event){
     event.stopPropagation()
     // selecting current elements
@@ -339,6 +400,7 @@ function deleteTaskFunction(event){
         // update delete button icon
         clickedButtonIcon.classList.remove('bi-arrow-clockwise')
         clickedButtonIcon.classList.add('bi-x-square')
+        saveData()
     }else{
         // remove task from current list && add it to "Deleted" list
         currentTask.classList.add('deleted')
@@ -348,4 +410,89 @@ function deleteTaskFunction(event){
         clickedButtonIcon.classList.add('bi-arrow-clockwise')
         clickedButtonIcon.classList.remove('bi-x-square')
     }
+    tasksLimitFunction()
+    saveData()
 }
+
+
+// ["DELETE TASK" RELATED FUNCTION] Clear deleted tasks list && event handler
+function clearDeletedTasksListFunction(){
+    deletedTasksList.innerHTML = ''
+    tasksLimitFunction()
+    saveData()
+}
+clearDeletedTasksButton.addEventListener('click', clearDeletedTasksListFunction)
+
+
+// Tasks limit function
+function tasksLimitFunction(){
+    // defining conditions
+    const concluedTasksLisIstOverTheLimit = concluedTasksList.children.length > 15
+    const deletedTasksListIsOverTheLimit = deletedTasksList.children.length > 10
+
+    // if any of these conditions above return true, then we will remove the last child from the list
+    if(concluedTasksLisIstOverTheLimit){
+        const lastConcluedItem = concluedTasksList.lastChild
+        concluedTasksList.removeChild(lastConcluedItem)
+    }else if(deletedTasksListIsOverTheLimit){
+        const lastDeletedItem = deletedTasksList.lastChild
+        deletedTasksList.removeChild(lastDeletedItem)
+    }
+}
+
+
+/* Local storage functions */
+function saveData(){
+    // save user name data
+    localStorage.setItem('saluting-div-content', salutingDiv.innerHTML)
+    localStorage.setItem('display-user-name-content', displayUserName.innerText)
+    localStorage.setItem('change-name-button-content', changeNameButton.innerHTML)
+    localStorage.setItem('change-name-button-icon-content', changeNameButtonIcon.innerHTML)
+    
+    // save user exp && level info
+    localStorage.setItem('user-exp-value', userExpValue)
+    localStorage.setItem('user-level-value', userLevelValue)
+
+    // save progress bar value
+    localStorage.setItem('progress-bar-value', progressBar.value)
+
+    // save task lists
+    localStorage.setItem('to-do-tasks-list-content', todoTasksList.innerHTML)
+    localStorage.setItem('conclued-tasks-list-content', concluedTasksList.innerHTML)
+    localStorage.setItem('deleted-tasks-list-content', deletedTasksList.innerHTML)
+}
+
+function loadData() {
+    // load user name data
+    if(localStorage.getItem('display-user-name-content') == null){
+        return
+    }else{
+        displayUserName.innerText = localStorage.getItem('display-user-name-content')
+        userNameInput.classList.add('hide')
+        changeNameButtonIcon.classList.remove('bi-check-lg')
+        changeNameButtonIcon.classList.add('bi-pencil')
+    }
+
+    // load user exp && level info
+    const savedExp = localStorage.getItem('user-exp-value')
+    const savedLevel = localStorage.getItem('user-level-value')
+
+    if(savedExp == null || savedLevel == null){
+        userCurrentExp.innerText = '0'
+        userCurrentLevel.innerText = '0'
+    }else{
+        userCurrentExp.innerText = savedExp
+        userCurrentLevel.innerText = savedLevel
+    }
+
+    // load progress bar value
+    progressBar.value = localStorage.getItem('progress-bar-value')
+
+    // load task lists
+    todoTasksList.innerHTML = localStorage.getItem('to-do-tasks-list-content')
+    concluedTasksList.innerHTML = localStorage.getItem('conclued-tasks-list-content')
+    deletedTasksList.innerHTML = localStorage.getItem('deleted-tasks-list-content')
+
+    setEventListenerToTaskButtons()
+}
+loadData()
