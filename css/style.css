@@ -21,16 +21,21 @@ body{
     border-radius: 1rem;
     border: 0.2rem solid transparent; 
 }
-.hide{
-    display: none;
-}
-.task-item.hide{
+.hide,
+.task-item.hide,
+#toolbar.hide,
+#progress-container.hide,
+#form-add-task.hide,
+#todo-tasks-section.hide,
+#conclued-tasks-section.hide,
+#deleted-tasks-section.hide
+{
     display: none;
 }
 
 
 /* Header Styles */
-.to-do-app{
+#to-do-app{
     width: 34rem;
     padding: 2rem 2rem 3rem 2rem;
     border-radius: 1rem;
@@ -41,7 +46,7 @@ body{
 .to-do-header{
     margin-bottom: 2.3rem;
 }
-.to-do-header h1{
+.to-do-header h2{
     display: flex;
     font-size: 2rem;
     align-items: center;
@@ -123,24 +128,27 @@ body{
     border: 0.1rem solid lightgray;
     outline: none;
 }
-.progress-container{
+#progress-container{
     display: flex;
     justify-content: space-between;
     margin-top: 1.3rem;
 }
-.progress-container h2{
+#progress-container h2{
     font-weight: 100;
     font-size: 0.9rem;
     opacity: 0.8;
-}
-#user-level{
+    text-decoration: none;
     text-transform: uppercase;
+}
+#progress-container span{
+    margin-left: 0.2rem;
 }
 #progress-bar{
     width: 100%;
-    padding: 0.6rem;
+    padding: 1rem;
+    margin-top: -1rem;
 }
-.toolbar{
+#toolbar{
     margin-top: 1.3rem;
     display: flex;
     justify-content: space-around;
@@ -310,11 +318,11 @@ footer a{
 
 /* Responsive Styles */
 @media screen and (max-width: 750px) {
-    .to-do-app {
+    #to-do-app {
         width: 95%;
         padding: 1rem;
     }
-    .to-do-header h1 {
+    .to-do-header h2 {
         font-size: 1.4rem;
     }
     .to-do-header img{
@@ -331,7 +339,7 @@ footer a{
     .task-input-container button{
         font-size: 1.2rem;
     }
-    .progress-container h2{
+    #progress-container h2{
         font-size: 0.7rem;
     }
     #edit-task-form button{
