@@ -46,6 +46,7 @@ body{
 }
 #data-warning button{
     border: none;
+    outline: none;
     color: white;
     font-size: 1.7rem;
     background-color: transparent;
@@ -244,6 +245,7 @@ body{
     border: none;
     font-size: 1.1rem;
     cursor: pointer;
+    background-color: transparent;
 }
 .task-item{
     position: relative;
