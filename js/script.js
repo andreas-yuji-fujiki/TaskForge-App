@@ -242,7 +242,18 @@ clearSearchInputButton.addEventListener('click', event => {
     searchInput.focus()
 
     // calling search function to update search results
-    searchTasksFunction()
+    const tasksList = document.getElementsByTagName('li')
+
+    searchInfoDiv.classList.add('hide')
+
+    categoryInfoDivs.forEach(div => {
+        div.classList.remove('hide')
+    })
+
+    // if there's no input value... then we will show back all tasks
+    for(let i = 0; i < tasksList.length; i++){
+        tasksList[i].classList.remove('hide')
+    }
 })
 
 
