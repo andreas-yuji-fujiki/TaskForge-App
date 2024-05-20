@@ -89,12 +89,11 @@ body{
     cursor: pointer;
 }
 #user-name-input{
-    width: 10rem;
+    width: 11.2rem;
     margin-left: 0.5rem;
     font-size: 2rem;
     border: none;
     outline: none;
-    font-weight: bolder;
     background-color: transparent;
 }
 .to-do-header img{
