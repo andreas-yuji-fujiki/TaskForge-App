@@ -13,6 +13,6 @@ TaskForge is a robust task management application that provides complete control
 
 ![TaskForge Banner](img/banner.png)
 
+## Project By: [ Andreas Yuji ](https://andreas-yuji-fujiki.github.io/portfolio)
 ## License
-
 This project is licensed under the [MIT License](LICENSE).
